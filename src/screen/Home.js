@@ -37,7 +37,8 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  // handled multiple api calls on text change
+  //  =======================================> DEBOUNCE HANDLER <=================================
+
   const debouncedChangeHandler = useMemo(
     () =>
       debounce(() => {
@@ -52,7 +53,7 @@ const Home = () => {
     debouncedChangeHandler();
   }, [debouncedChangeHandler]);
 
-  // back handling
+  //  =======================================> BACK HANDLING <===================================
   useEffect(() => {
     window.addEventListener("popstate", handleEvent);
     return () => window.removeEventListener("popstate", handleEvent);
@@ -63,21 +64,26 @@ const Home = () => {
     return;
   };
 
+  //  =================================> ON CLICK SEARCH BUTTON HANDLER <============================
+
   const handleSubmit = (e) => {
     setTitle(text);
     navigate("/subjects");
   };
 
+  //  =================================> ON CLICK ENTER BUTTON HANDLER <================================
   const handleKeypress = (e) => {
     if (e.keyCode === 13) {
       handleSubmit();
     }
   };
 
+  //  ======================================> TEXT CHANGE <==========================================
   const onChangeText = (text) => {
     setText(text);
   };
 
+  //  =================================> ON CLICK TRENDING SUBJECTS OR TITLE <=========================
   const onClickTrendingSubjects = (event, item) => {
     event.preventDefault();
     setPrev(0);
@@ -87,6 +93,7 @@ const Home = () => {
     navigate("/subjects", { state: { item } });
   };
 
+  //  ======================> PREVIOUS AND NEXT BUTTON CLICK IN SUBJECTS COMPONENT <=====================
   const prevClickInSubject = () => {
     setPrev(prev >= 10 ? prev - 10 : 0);
     setNxt(nxt >= 20 ? nxt - 10 : 10);
@@ -96,7 +103,7 @@ const Home = () => {
     setPrev(prev + 10);
     setNxt(nxt + 10);
   };
-
+  //  =========================> PREVIOUS AND NEXT BUTTON CLICK IN SEARCHBOOKS COMPONENT <===================
   const onPrevClick = () => {
     setPrevious(previous >= 10 ? previous - 10 : 0);
     setNext(next >= 20 ? next - 10 : 10);
@@ -107,6 +114,8 @@ const Home = () => {
     setPrevious(previous + 10);
     setNext(next + 10);
   };
+
+  //  =========================================> TITLE OR SEARCHBAR  <=========================================
 
   const titleOrSearchbar = () => {
     if (title) {
