@@ -10,7 +10,7 @@ export const fetchSearchBook = (text) => async (dispatch) => {
   dispatch({ type: "FETCH_SEARCH_BOOK_LOADING" });
 
   const res = await fetch(
-    `https://openlibrary.org/search.json?q=${encodeURI(text)}&limit=100`,
+    `https://openlibrary.org/search.json?q=${encodeURI(text)}&limit=40`,
     {
       method: "GET",
     }

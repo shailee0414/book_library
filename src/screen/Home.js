@@ -90,6 +90,7 @@ const Home = () => {
     setNxt(10);
     setTitle(item.title);
     setSubject(item);
+    setText(null)
     navigate("/subjects", { state: { item } });
   };
 
@@ -153,7 +154,7 @@ const Home = () => {
             />
           ) : null}
           {isSearchLoading ? <div>Loading...</div> : null}
-          {title ? (
+          {title && !text ? (
             <Subjects
               sub={subject}
               previous={prev}
