@@ -12,11 +12,14 @@ export const SearchBar = ({ onChangeText, text, onClick, onKeyPress }) => {
           value={text}
           onKeyDown={onKeyPress}
           onChange={(e) => {
+            e.preventDefault();
             text = e.target.value;
             onChangeText(e.target.value);
           }}
         />
-        <button className="ui button" onClick={onClick}>Search</button>
+        <button className="ui button" onClick={onClick}>
+          Search
+        </button>
       </div>
     </div>
   );
@@ -24,17 +27,17 @@ export const SearchBar = ({ onChangeText, text, onClick, onKeyPress }) => {
 
 export const Search = ({ onChangeText, text }) => {
   return (
-      <div className="ui mini icon input">
-        <input
-          type="text"
-          placeholder="Search subjects"
-          style={{ borderRadius: "5px" }}
-          onChange={(e) => {
-            text = e.target.value;
-            onChangeText(e.target.value);
-          }}
-        />
-        <i className="search icon"></i>
-      </div>
+    <div className="ui mini icon input">
+      <input
+        type="text"
+        placeholder="Search subjects"
+        style={{ borderRadius: "5px" }}
+        onChange={(e) => {
+          text = e.target.value;
+          onChangeText(e.target.value);
+        }}
+      />
+      <i className="search icon"></i>
+    </div>
   );
 };

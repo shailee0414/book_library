@@ -14,10 +14,13 @@ const Home = () => {
   const navigate = useNavigate();
   const data = useSelector((state) => state?.book?.bookArr);
   const searchBook = useSelector((state) => state?.search?.searchArr);
+  const isSearchLoading = useSelector(
+    (state) => state?.search?.isSearchLoading
+  );
   const dispatch = useDispatch();
   const [title, setTitle] = useState();
   const [text, setText] = useState();
-  const [offset, setOffset] = useState();
+  const [offset, setOffset] = useState(0);
   const [previous, setPrevious] = useState();
   const [next, setNext] = useState();
   const [subject, setSubject] = useState();
@@ -28,22 +31,38 @@ const Home = () => {
     dispatch(fetchBook());
     setNext(10);
     setPrevious(0);
+    return () => {
+      debouncedChangeHandler.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  const fetchTitleAndAuthor = useCallback(() => {
-    if (text) {
-      dispatch(fetchSearchBook(text, offset));
-    }
-  }, [dispatch, offset, text]);
+  // handled multiple api calls on text change
+  const debouncedChangeHandler = useMemo(
+    () =>
+      debounce(() => {
+        if (text) {
+          dispatch(fetchSearchBook(text));
+        }
+      }, 100),
+    [text, dispatch]
+  );
 
   useEffect(() => {
-    fetchTitleAndAuthor();
-  }, [fetchTitleAndAuthor]);
+    debouncedChangeHandler();
+  }, [debouncedChangeHandler]);
+
+  // back handling
+  useEffect(() => {
+    window.addEventListener("popstate", handleEvent);
+    return () => window.removeEventListener("popstate", handleEvent);
+  }, []);
 
   const handleEvent = (e) => {
     setTitle(null);
     return;
   };
+
   const handleSubmit = (e) => {
     setTitle(text);
     navigate("/subjects");
@@ -55,18 +74,10 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("popstate", handleEvent);
-    return () => window.removeEventListener("popstate", handleEvent);
-  }, []);
-
   const onChangeText = (text) => {
     setText(text);
   };
 
-  const debouncedChangeHandler = useMemo(() => debounce(onChangeText, 300), []);
-
-  
   const onClickTrendingSubjects = (event, item) => {
     event.preventDefault();
     setPrev(0);
@@ -80,6 +91,7 @@ const Home = () => {
     setPrev(prev >= 10 ? prev - 10 : 0);
     setNxt(nxt >= 20 ? nxt - 10 : 10);
   };
+
   const nextClickInSubject = () => {
     setPrev(prev + 10);
     setNxt(nxt + 10);
@@ -102,7 +114,7 @@ const Home = () => {
     }
     return (
       <SearchBar
-        onChangeText={debouncedChangeHandler}
+        onChangeText={onChangeText}
         text={text}
         onClick={handleSubmit}
         onKeyPress={handleKeypress}
@@ -122,13 +134,16 @@ const Home = () => {
       <div id="tableContainer">
         <div id="bar_title">{titleOrSearchbar()}</div>
         <div id="tableList">
-          <SearchBooks
-            data={text ? searchBook : []}
-            onNextClick={onNextClick}
-            onPrevClick={onPrevClick}
-            next={next}
-            previous={previous}
-          />
+          {text ? (
+            <SearchBooks
+              data={text ? searchBook : []}
+              onNextClick={onNextClick}
+              onPrevClick={onPrevClick}
+              next={next}
+              previous={previous}
+            />
+          ) : null}
+          {isSearchLoading ? <div>Loading...</div> : null}
           <Subjects
             sub={subject}
             previous={prev}

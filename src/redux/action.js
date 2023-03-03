@@ -6,20 +6,20 @@ export const fetchBook = () => async (dispatch) => {
   }
 };
 
-export const fetchSearchBook = (text, offset) => async (dispatch) => {
+export const fetchSearchBook = (text) => async (dispatch) => {
+  dispatch({ type: "FETCH_SEARCH_BOOK_LOADING" });
+
   const res = await fetch(
-    `http://openlibrary.org/search.json?q=${encodeURI(text)}&limit=10&offset=${offset}`,
+    `http://openlibrary.org/search.json?q=${encodeURI(text)}&limit=100`,
     {
       method: "GET",
     }
   );
   if (res) {
     const response = await res.json();
-    console.log(
-      `http://openlibrary.org/search.json?q=${encodeURI(text)}`,
-      response.docs
-    );
-    dispatch({ type: "FETCH_SEARCH_BOOK", payload: response?.docs });
+    dispatch({ type: "FETCH_SEARCH_BOOK_SUCCESS", payload: response?.docs });
+  } else {
+    dispatch({ type: "FETCH_SEARCH_BOOK_FAIL", });
   }
 };
 

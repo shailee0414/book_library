@@ -2,9 +2,8 @@ import React from "react";
 
 import "../css/SearchBooks.css";
 const SearchBooks = ({ data, onPrevClick, onNextClick, next, previous }) => {
-  console.log("333333333333", data);
 
-  if (data.length !== 0) {
+  if (data?.length) {
     return (
       <div id="search">
         <div>
