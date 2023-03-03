@@ -1,5 +1,5 @@
 export const fetchBook = () => async (dispatch) => {
-  const res = await fetch("http://openlibrary.org/subjects/love.json?");
+  const res = await fetch("https://openlibrary.org/subjects/love.json?");
   if (res) {
     const response = await res.json();
     dispatch({ type: "FETCH_BOOK", payload: response?.works });
@@ -10,7 +10,7 @@ export const fetchSearchBook = (text) => async (dispatch) => {
   dispatch({ type: "FETCH_SEARCH_BOOK_LOADING" });
 
   const res = await fetch(
-    `http://openlibrary.org/search.json?q=${encodeURI(text)}&limit=100`,
+    `https://openlibrary.org/search.json?q=${encodeURI(text)}&limit=100`,
     {
       method: "GET",
     }

@@ -153,13 +153,15 @@ const Home = () => {
             />
           ) : null}
           {isSearchLoading ? <div>Loading...</div> : null}
-          <Subjects
-            sub={subject}
-            previous={prev}
-            next={nxt}
-            onPrevClick={prevClickInSubject}
-            onNextClick={nextClickInSubject}
-          />
+          {title ? (
+            <Subjects
+              sub={subject}
+              previous={prev}
+              next={nxt}
+              onPrevClick={prevClickInSubject}
+              onNextClick={nextClickInSubject}
+            />
+          ) : null}
         </div>
       </div>
     </div>
