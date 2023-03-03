@@ -1,0 +1,13 @@
+#subjects{
+    width:100%;
+    right:0px
+}
+#buttonContainer{
+    display: flex;
+    justify-content: end;
+    margin-right: 3em;
+    padding: 2.5em;
+}
+#buttonContainer button{
+    margin: 1.2em;
+}

@@ -1,0 +1,13 @@
+#search{
+    width:100%;
+    right:100px
+}
+#prevNextButton{
+    display: flex;
+    justify-content: end;
+    margin-right: 3em;
+    padding: 2.5em;
+}
+#prevNextButton button{
+    margin: 1.2em;
+}

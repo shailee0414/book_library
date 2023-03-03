@@ -1,0 +1,28 @@
+#home{
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #EEEEEE;
+    margin-top: 2em;
+}
+#trendingContainer{
+    border-right: 2px solid grey;
+    height: 120vh;
+}
+#tableContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+#bar_title{
+    border-bottom: 2px solid grey;
+    padding-left: 1em;
+}
+#tableList{
+    padding-left: 1em;
+    padding-top: 3em;
+    padding-bottom: 2em;
+}
+#title{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}

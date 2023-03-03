@@ -1,0 +1,17 @@
+#quote{
+    display: flex;
+    justify-content: center;
+    margin-top: 6em;
+    flex-direction: column;
+}
+#quoteContent{
+    word-spacing: 0.2em;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+}
+#writer{
+    font-style: italic;
+    font-size: 1em;
+    text-align: center;
+}

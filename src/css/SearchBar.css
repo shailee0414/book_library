@@ -1,0 +1,12 @@
+#searchBar{
+    margin-top:2em ;
+    margin-bottom: 2em;
+    display: flex;
+}
+#searchBar div{
+    flex-basis: 30em;
+}
+#searchBar div input{
+    color:#434242 ;
+    border-radius: 7px;
+}
